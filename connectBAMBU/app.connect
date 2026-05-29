@@ -1,0 +1,216 @@
+title: BAMBU PRINTER MONITOR
+window_title: null
+logo_path: null
+timeline:
+  show: false
+  display: relative
+  pixels_per_tick: 0.0
+  milestones: []
+streaming:
+  buffer_size: 5000
+  timeline: null
+  playback_speed: null
+  window: null
+  persistence:
+  - enabled:
+      value_id: stream_to_nominal
+    data_source_rid:
+      value_id: dataset_rid
+    file_path: null
+    streams:
+    - id: nozzle_temp
+      tags: {}
+    - id: bed_temp
+      tags: {}
+    - id: remaining_time
+      tags: {}
+    - id: camera_frame_size
+      tags: {}
+  channels:
+  - channel: remaining_time.value
+  - channel: bed_temp.value
+  - channel: nozzle_temp.value
+python:
+  packages:
+  - bambu-connect
+  - numpy
+  - numpy-stl
+  - bambu-lab-cloud-api
+  wheelhouse: null
+on_load: null
+on_unload: null
+tiles:
+- layout: grid
+  rows:
+  - height: 0.8
+    columns:
+    - width: 1.0
+      tile:
+        layout: grid
+        rows:
+        - height: 1.0
+          columns:
+          - width: 0.5
+            tile:
+              layout: tabs
+              tabs:
+              - title: Temperatures
+                allow_popout: true
+                tile:
+                  layout: pane
+                  id: e1edd9f0-fbf0-47a3-97ab-f5b6ae9bb55c
+                  title: null
+                  direction: vertical
+                  should_fill: false
+                  elements:
+                  - display: gauge
+                    stream_id: nozzle_temp
+                    radius: null
+                    arc: null
+                    zone_width: null
+                    orientation: vertical
+                    width: 300.0
+                    height: 500.0
+                    title: Nozzle Temp
+                    units: °C
+                    min: 0.0
+                    max: 300.0
+                    zones:
+                    - start: 0.0
+                      end: 150.0
+                      color: safe
+                    - start: 150.0
+                      end: 250.0
+                      color: warn
+                    - start: 250.0
+                      end: 300.0
+                      color: critical
+                    hysteresis: 0.016666668
+                    refresh: 0.033333335
+                    decimal_places: 0
+                  - display: gauge
+                    stream_id: bed_temp
+                    radius: null
+                    arc: null
+                    zone_width: null
+                    orientation: vertical
+                    width: 300.0
+                    height: 500.0
+                    title: Bed Temp
+                    units: °C
+                    min: 0.0
+                    max: 120.0
+                    zones:
+                    - start: 0.0
+                      end: 60.0
+                      color: safe
+                    - start: 60.0
+                      end: 100.0
+                      color: warn
+                    - start: 100.0
+                      end: 120.0
+                      color: critical
+                    hysteresis: 0.016666668
+                    refresh: 0.033333335
+                    decimal_places: 0
+              - title: Print Progress
+                allow_popout: true
+                tile:
+                  layout: pane
+                  id: 2439e4a0-521b-4a05-98b2-aec03d96824c
+                  title: null
+                  direction: vertical
+                  should_fill: false
+                  elements:
+                  - display: stream_value
+                    title: Remaining Time
+                    stream_id: remaining_time
+                    units: min
+                  - display: channel_table
+                    stream_ids:
+                    - nozzle_temp
+                    - bed_temp
+                    - remaining_time
+                    - camera_frame_size
+          - width: 0.5
+            tile:
+              layout: tabs
+              tabs:
+              - title: Camera Feed
+                allow_popout: true
+                tile:
+                  layout: pane
+                  id: bb717b03-2abb-4f30-968d-52d3acc4d0df
+                  title: null
+                  direction: vertical
+                  should_fill: false
+                  elements:
+                  - display: video
+                    mcap: null
+                    frames: frame_buffer
+                    height: 400.0
+              - title: Settings
+                allow_popout: true
+                tile:
+                  layout: pane
+                  id: 7b39ec64-2a2f-423f-953e-424c5927d218
+                  title: null
+                  direction: vertical
+                  should_fill: false
+                  elements:
+                  - input: text
+                    id: printer_ip
+                    label: Printer IP
+                    default: 192.168.1.100
+                  - input: text
+                    id: access_code
+                    label: Access Code
+                    default: ''
+                  - input: text
+                    id: serial_number
+                    label: Serial Number
+                    default: ''
+                  - input: number
+                    id: frame_rate
+                    label: Camera Frame Rate (s)
+                    default: 1.0
+                  - input: checkbox
+                    id: stream_to_nominal
+                    label: Stream to Nominal
+                  - input: text
+                    id: dataset_rid
+                    label: Dataset RID
+                    default: ''
+                  - input: text
+                    id: gcode_file_path
+                    label: STL File Path
+                    default: /path/to/your_model.stl
+                  - input: checkbox
+                    id: send_print_job
+                    label: Slice & Send Print Job
+  - height: 0.2
+    columns:
+    - width: 1.0
+      tile:
+        layout: pane
+        id: 08317419-e710-431d-a109-e787bdbca11c
+        title: null
+        direction: vertical
+        should_fill: false
+        elements:
+        - controls: script_table
+          scripts:
+          - label: Bambu Printer Stream
+            path: bambuPrint.py
+            args: []
+            max_log_lines: 10000
+            id: null
+          show_output_column: true
+left_panel: null
+right_panel: null
+bottom_panel: null
+scene: null
+poster: null
+prompt_windows: []
+mcap_path: null
+conditionals: []
