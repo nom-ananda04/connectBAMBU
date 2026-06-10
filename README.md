@@ -49,10 +49,6 @@ pip install paho-mqtt numpy numpy-stl connect-python
      - FLAT_DIR   = "/Users/ananda/connectBAMBU/flat_profiles"
      - SLICE_DIR  = "/Users/ananda/connectBAMBU/sliced"
      - all you should need to do is change ananda -> usrmac (specific to your computer) other than that you need to install orcaslicer and then paho.mqtt.client to talk with the printer
-to send a print first put the IP, Access code, and Serial number in the boxes:
-IP = 10.113.0.210
-Access = 7e11b21e
-Serial = 00M09D541301301
 2. Generate the flattened slicing profiles (see *Slicing* below).
 3. Start the **Bambu Printer Stream** script from the bottom panel. You should see `Ready!` and `Telemetry connected` in the logs, and the gauges should begin updating.
 
